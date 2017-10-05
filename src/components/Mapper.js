@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ReactMapboxGl, { Layer, ZoomControl, ScaleControl, Marker, Cluster } from "react-mapbox-gl";
+import ReactMapboxGl, { Layer, ZoomControl, ScaleControl, Marker, Cluster, Popup } from "react-mapbox-gl";
 import places from '../datajson/places.json';
 
  const Map = ReactMapboxGl({
@@ -50,10 +50,32 @@ import places from '../datajson/places.json';
  }
 
  class Mapper extends Component {
+   constructor(props) {
+     super(props);
+
+    this.state ={
+       popup: null,
+       center: [-95.366302, 29.761993]
+    }
+
+   }
+
+  //  onMarkerClick (coords, feature) {
+  //    console.log(coords);
+  //    this.setState({
+  //      center: feature.geometry.coordinates,
+  //      zoom: [14]
+  //    })
+  //  }
 
    onMarkerClick (coords) {
      console.log(coords);
+    //  this.setState({
+    //    center: feature.geometry.coordinates,
+    //    zoom: [14]
+    //  })
    }
+
 
    clusterMarker = (coordinates, pointCount) => (
      <Marker coordinates={coordinates} key={coordinates.toString()} style={styles.clusterMarker}>
@@ -80,7 +102,17 @@ import places from '../datajson/places.json';
                  coordinates={feature.geometry.coordinates}
                  onClick={this.onMarkerClick.bind(this, feature.geometry.coordinates)}>
                  M
-               </Marker>
+
+{/*
+               <Popup
+                 coordinates={feature.geometry.coordinates}
+                 offset={{
+                   'bottom-left': [12, -38],  'bottom': [0, -38], 'bottom-right': [-12, -38]
+                 }}>
+                 <h1>Popup</h1>
+               </Popup> */}
+
+              </Marker>
                 )
               }
            </Cluster>
